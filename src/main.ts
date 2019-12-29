@@ -15,7 +15,6 @@ async function bootstrap() {
   app.set('views', viewsPath);
   app.set('view engine', '.hbs');
 
-
   app.use(
     session({
       secret: 'nest cats',
