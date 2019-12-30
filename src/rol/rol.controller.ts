@@ -9,7 +9,7 @@ export class RolController {
 
     @Post()
     @HttpCode(200)
-    async createItem(@Body() dto: Rol) {
+    async createItem(@Body() dto: any) {
       return (await this.rolService.createRol(dto));
     }
 

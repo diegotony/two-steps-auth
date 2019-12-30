@@ -7,9 +7,9 @@ import { Rol } from 'src/dto/rol.dto';
 export class RolService {
   constructor(@InjectModel('Rol') private readonly RolModel: Model<Rol>) {}
 
-  async createRol(createRolDto: Rol): Promise<any> {
+  async createRol(data: any): Promise<any> {
     try {
-      const createdRol = new this.RolModel(createRolDto);
+      const createdRol = new this.RolModel(data);
       if (!createdRol) {
         throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
       }
@@ -23,8 +23,8 @@ export class RolService {
   }
   async findRols(): Promise<any[]> {
     return await this.RolModel.find({})
-      .populate('catalog')
       .exec();
   }
+
   
 }
