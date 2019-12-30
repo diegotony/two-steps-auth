@@ -31,9 +31,8 @@ export class UserrolService {
           .exec();
       }
 
-      async findUserRol(id:string): Promise<any[]> {
-        return await this.UserRolModel.find({user_id: id})
-          .exec();
+      findUserRol(id:string){
+        return  this.UserRolModel.find({user_id: id}).populate('rol_id').exec();
       }
     
 }

@@ -1,15 +1,29 @@
-import { Controller, Get, Render, Post, Res,Request, UseGuards, UseFilters } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  Post,
+  Res,
+  Request,
+  UseGuards,
+  UseFilters,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 import { LoginGuard } from './common/guards/login.guard';
 import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
 import { UserService } from './user/user.service';
+import { UserrolService } from './userrol/userrol.service';
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
 export class AppController {
-  constructor(private readonly appService: AppService,private readonly userService: UserService ) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly userRolService: UserrolService,
+
+  ) {}
   @Get('/')
   @Render('login')
   index(@Request() req): { message: string } {
@@ -25,10 +39,12 @@ export class AppController {
   @UseGuards(AuthenticatedGuard)
   @Get('/home')
   @Render('home')
-  getHome(@Request() req) {
-    console.log(req.user._doc)
-    
-    return { user: req.user._doc };
+  async getHome(@Request() req) {
+    return this.userRolService.findUserRol(req.user._doc['_id']).then(data => {
+      console.log(data)
+
+      return { user: req.user._doc, rol: data };
+    });
   }
 
   @UseGuards(AuthenticatedGuard)
@@ -43,5 +59,4 @@ export class AppController {
     req.logout();
     res.redirect('/');
   }
-  
 }
