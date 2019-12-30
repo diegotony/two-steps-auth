@@ -7,26 +7,7 @@ import { UserRol } from '../dto/userrol.dto';
 export class UserrolService {
 
     constructor(@InjectModel('UserRol') private readonly UserRolModel: Model<UserRol>) {
-        // this.users = [
-        //   {
-        //     userId: 1,
-        //     username: 'john',
-        //     password: 'changeme',
-        //     pet: { name: 'alfred', picId: 1 },
-        //   },
-        //   {
-        //     userId: 2,
-        //     username: 'chris',
-        //     password: 'secret',
-        //     pet: { name: 'gopher', picId: 2 },
-        //   },
-        //   {
-        //     userId: 3,
-        //     username: 'maria',
-        //     password: 'guess',
-        //     pet: { name: 'jenny', picId: 3 },
-        //   },
-        // ];
+
       }
     
     
@@ -47,6 +28,11 @@ export class UserrolService {
     
       async findItems(): Promise<any[]> {
         return await this.UserRolModel.find({})
+          .exec();
+      }
+
+      async findUserRol(id:string): Promise<any[]> {
+        return await this.UserRolModel.find({user_id: id})
           .exec();
       }
     

@@ -26,7 +26,9 @@ export class AppController {
   @Get('/home')
   @Render('home')
   getHome(@Request() req) {
-    return { user: req.user };
+    console.log(req.user._doc)
+    
+    return { user: req.user._doc };
   }
 
   @UseGuards(AuthenticatedGuard)

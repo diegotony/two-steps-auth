@@ -17,4 +17,10 @@ export class RolController {
     async findRols(): Promise<any[]> {
       return (await this.rolService.findRols());
     }
+
+    @Get()
+    @HttpCode(200)
+    async findRol(): Promise<any[]> {
+      return (await this.rolService.findRols());
+    }
 }

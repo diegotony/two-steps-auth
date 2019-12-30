@@ -34,6 +34,10 @@ export class UserService {
     return this.users.find(user => user.username === username);
   }
 
+  async findUser(email: string): Promise<any> {
+    return this.UserModel.findOne({ email: email }).exec();
+  }
+
   async createItem(data: any): Promise<any> {
     try {
       const createdItem = new this.UserModel(data);
