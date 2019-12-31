@@ -9,10 +9,15 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UserrolController } from './userrol/userrol.controller';
 import { UserrolModule } from './userrol/userrol.module';
+import { FuncionalidadService } from './funcionalidad/funcionalidad.service';
+import { FuncionalidadController } from './funcionalidad/funcionalidad.controller';
+import { FuncionalidadModule } from './funcionalidad/funcionalidad.module';
+import { RolfuncionalidadModule } from './rolfuncionalidad/rolfuncionalidad.module';
+import { RolesfuncionalidadModule } from './rolesfuncionalidad/rolesfuncionalidad.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), UserModule, RolModule, AuthModule, UserrolModule],
-  controllers: [AppController],
-  providers: [AppService, AuthService],
+  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), UserModule, RolModule, AuthModule, UserrolModule, FuncionalidadModule, RolfuncionalidadModule, RolesfuncionalidadModule],
+  controllers: [AppController, FuncionalidadController],
+  providers: [AppService, AuthService, FuncionalidadService],
 })
 export class AppModule {}

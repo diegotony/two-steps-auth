@@ -1,15 +1,15 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Rol } from '../dto/rol.dto';
+import { RolFuncionalidad } from '../dto/rolfuncionalidad.dto';
 
 @Injectable()
-export class RolService {
-  constructor(@InjectModel('Rol') private readonly RolModel: Model<Rol>) {}
+export class RolesfuncionalidadService {
+    constructor(@InjectModel('RolFuncionalidad') private readonly RolFuncionalidadModel: Model<RolFuncionalidad>) {}
 
-  async createRol(data: any): Promise<any> {
+  async createRolFuncionalidad(data: any): Promise<any> {
     try {
-      const createdRol = new this.RolModel(data);
+      const createdRol = new this.RolFuncionalidadModel(data);
       if (!createdRol) {
         throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
       }
@@ -21,10 +21,9 @@ export class RolService {
       );
     }
   }
-  async findRols(): Promise<any[]> {
-    return await this.RolModel.find({})
+  async findRolFuncionalidad(): Promise<any[]> {
+    return await this.RolFuncionalidadModel.find({})
       .exec();
   }
 
-  
 }
