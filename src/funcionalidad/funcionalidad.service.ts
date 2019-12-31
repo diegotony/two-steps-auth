@@ -5,7 +5,7 @@ import { Funcionalidad } from 'src/dto/funcionalidad.dto';
 
 @Injectable()
 export class FuncionalidadService {
-    constructor(@InjectModel('Rol') private readonly FuncionalidadModel: Model<Funcionalidad>) {}
+    constructor(@InjectModel('Funcionalidad') private readonly FuncionalidadModel: Model<Funcionalidad>) {}
 
   async createFuncionalidad(data: any): Promise<any> {
     try {
