@@ -22,7 +22,6 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly userRolService: UserrolService,
-
   ) {}
   @Get('/')
   @Render('login')
@@ -41,7 +40,7 @@ export class AppController {
   @Render('home')
   async getHome(@Request() req) {
     return this.userRolService.findUserRol(req.user._doc['_id']).then(data => {
-      console.log(data)
+      console.log(data);
 
       return { user: req.user._doc, rol: data };
     });
@@ -59,4 +58,26 @@ export class AppController {
     req.logout();
     res.redirect('/');
   }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('/estudiantes')
+  @Render('profile')
+  getStudents(@Request() req) {
+    return { user: req.user };
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('/notas')
+  @Render('profile')
+  getNotas(@Request() req) {
+    return { user: req.user };
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('/admin')
+  @Render('profile')
+  getAdmin(@Request() req) {
+    return { user: req.user };
+  }
+  
 }
