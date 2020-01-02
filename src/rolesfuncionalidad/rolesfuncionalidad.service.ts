@@ -26,4 +26,10 @@ export class RolesfuncionalidadService {
       .exec();
   }
 
+  findOneRolFuncionalidad(id: string) {
+    return this.RolFuncionalidadModel.find({ userrol_id: id })
+      .populate('funcionalidad_id')
+      .exec();
+  }
+
 }

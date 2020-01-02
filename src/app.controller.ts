@@ -7,6 +7,7 @@ import {
   Request,
   UseGuards,
   UseFilters,
+  Param,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
@@ -15,13 +16,15 @@ import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
 import { UserService } from './user/user.service';
 import { UserrolService } from './userrol/userrol.service';
+import { RolesfuncionalidadService } from './rolesfuncionalidad/rolesfuncionalidad.service';
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
 export class AppController {
   constructor(
-    private readonly appService: AppService,
-    private readonly userRolService: UserrolService,
+    private userRolService: UserrolService,
+    private  RolFuncionalidadService: RolesfuncionalidadService,
+
   ) {}
   @Get('/')
   @Render('login')
@@ -40,8 +43,7 @@ export class AppController {
   @Render('home')
   async getHome(@Request() req) {
     return this.userRolService.findUserRol(req.user._doc['_id']).then(data => {
-      console.log(data);
-
+      console.log(data)
       return { user: req.user._doc, rol: data };
     });
   }
@@ -53,7 +55,7 @@ export class AppController {
     return { user: req.user };
   }
 
-  @Get('/logout')
+  @Get('/logout')   
   logout(@Request() req, @Res() res: Response) {
     req.logout();
     res.redirect('/');
@@ -61,7 +63,7 @@ export class AppController {
 
   @UseGuards(AuthenticatedGuard)
   @Get('/estudiantes')
-  @Render('profile')
+  @Render('estudiantes')
   getStudents(@Request() req) {
     return { user: req.user };
   }
@@ -75,9 +77,20 @@ export class AppController {
 
   @UseGuards(AuthenticatedGuard)
   @Get('/admin')
-  @Render('profile')
+  @Render('admin')
   getAdmin(@Request() req) {
     return { user: req.user };
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('/funcionalidad/:id')
+  @Render('funcionalidad')
+  funcionalidad(@Request() req ,@Param() param ) {
+    return this.RolFuncionalidadService.findOneRolFuncionalidad(param.id).then(data => {
+      console.log(data)
+      return { funcionalidad: data };
+    });
+
   }
   
 }
