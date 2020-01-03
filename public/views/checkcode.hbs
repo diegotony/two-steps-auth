@@ -1,0 +1,12 @@
+<form method="post" action="check">
+  <input name="pin" placeholder="Enter PIN">
+  <input name="reqId" type="hidden" value="{{ reqId }}">
+  <button>Verify</button>
+</form>
+
+
+<form method="post" action="cancel">
+  <input name="reqId" type="hidden" value="{{ reqId }}">
+  <button class="inline">Cancel verification</button>
+</form>
+ 

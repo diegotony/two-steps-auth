@@ -8,6 +8,7 @@ import {
   UseGuards,
   UseFilters,
   Param,
+  Body,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
@@ -20,6 +21,13 @@ import { RolesfuncionalidadService } from './rolesfuncionalidad/rolesfuncionalid
 import { RolService } from './rol/rol.service';
 import { FuncionalidadService } from './funcionalidad/funcionalidad.service';
 
+const Nexmo = require('nexmo');
+
+const nexmo = new Nexmo({
+  apiKey: 'cbaeaaef',
+  apiSecret: 'KRTQC2ZAvUyMAAY9',
+});
+
 @Controller()
 @UseFilters(AuthExceptionFilter)
 export class AppController {
@@ -29,8 +37,69 @@ export class AppController {
     private RolService: RolService,
     private userService: UserService,
     private funcionalidadService: FuncionalidadService,
-
   ) {}
+
+  request_id = '';
+
+  // Verify
+  @Post('/verify')
+  async verifyCode(@Body() data, @Res() res: Response) {
+    return nexmo.verify.request(
+      {
+        number: '593978732512',
+        brand: 'Nexmo',
+      },
+      (err, result) => {
+        console.log(err ? err : result);
+        console.log(result.request_id);
+        this.request_id = result.request_id;
+        res.redirect('/check');
+      },
+    );
+  }
+
+  @Get('/verify')
+  @Render('verify')
+  async verify(@Request() req, @Res() res: Response) {
+    return { message: req.flash('loginError') };
+  }
+
+  @Get('/check')
+  @Render('checkcode')
+  async checkPage(@Request() req, @Res() res: Response) {
+    return { message: req.flash('loginError') };
+  }
+
+  @Post('/check')
+  async checkCode(@Body() data, @Res() res: Response) {
+    return nexmo.verify.check(
+      {
+        request_id: this.request_id,
+        code: data.pin,
+      },
+      (err, result) => {
+        console.log(err ? err : result);
+        if(result.status==='0'){
+          res.redirect('/home');
+        }
+      },
+    );
+  }
+
+  @Post('/cancel')
+  async cancelCode(@Body() data, @Res() res: Response) {
+    console.log(data);
+    return nexmo.verify.control(
+      {
+        request_id: this.request_id,
+        cmd: 'cancel',
+      },
+      (err, result) => {
+        console.log(err ? err : result);
+        res.redirect('/login');
+      },
+    );
+  }
 
   //  Login Component
 
@@ -43,7 +112,7 @@ export class AppController {
   @UseGuards(LoginGuard)
   @Post('/login')
   login(@Res() res: Response) {
-    res.redirect('/home');
+    res.redirect('/verify');
   }
 
   @Get('/logout')
