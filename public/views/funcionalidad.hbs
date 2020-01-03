@@ -1,4 +1,4 @@
-<!-- public/views/home.hbs -->
+{{!-- <!-- public/views/home.hbs -->
 <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
     <main class="mdl-layout__content">
         <div class="mdl-card mdl-shadow--6dp">
@@ -17,4 +17,18 @@
             </div>
         </div>
     </main>
+</div>
+ --}}
+
+
+<div class="container ">
+    <div class="row">
+        {{#each funcionalidad}}
+
+        <a class="mdl-button" href='/{{funcionalidad_id.url}}'>{{funcionalidad_id.name}}</a>
+
+        {{/each}}
+
+
+    </div>
 </div>

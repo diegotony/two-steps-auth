@@ -1,5 +1,28 @@
 <!-- public/views/home.hbs -->
-<div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+
+<div class="jumbotron text-center">
+  <h1>Bienvenido {{ user.email }}</h1>
+</div>
+
+
+<div class="container ">
+  <div class="row">
+    {{#each rol}}
+
+   
+    <div class="col-sm-3 " style="background-color:lavender;">
+      <h3>{{rol_id.name}}</h3>
+      <a class="mdl-button" href='/funcionalidad/{{_id}}'>Ingresar</a>
+    </div>
+
+    {{/each}}
+    
+
+  </div>
+</div>
+
+
+{{!-- <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
   <main class="mdl-layout__content">
     <div class="mdl-card mdl-shadow--6dp">
       <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
@@ -18,4 +41,4 @@
       </div>
     </div>
   </main>
-</div>
+</div> --}}

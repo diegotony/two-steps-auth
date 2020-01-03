@@ -5,7 +5,10 @@ import { RolFuncionalidad } from '../dto/rolfuncionalidad.dto';
 
 @Injectable()
 export class RolesfuncionalidadService {
-    constructor(@InjectModel('RolFuncionalidad') private readonly RolFuncionalidadModel: Model<RolFuncionalidad>) {}
+  constructor(
+    @InjectModel('RolFuncionalidad')
+    private readonly RolFuncionalidadModel: Model<RolFuncionalidad>,
+  ) {}
 
   async createRolFuncionalidad(data: any): Promise<any> {
     try {
@@ -23,13 +26,18 @@ export class RolesfuncionalidadService {
   }
   async findRolFuncionalidad(): Promise<any[]> {
     return await this.RolFuncionalidadModel.find({})
+      .populate('funcionalidad_id')
+      .populate({ path: 'userrol_id', populate: {
+        path:'user_id',
+        model: 'User'
+      } })
       .exec();
   }
 
   findOneRolFuncionalidad(id: string) {
     return this.RolFuncionalidadModel.find({ userrol_id: id })
       .populate('funcionalidad_id')
+      .populate('userrol_id')
       .exec();
   }
-
 }
