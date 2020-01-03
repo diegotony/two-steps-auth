@@ -9,6 +9,8 @@ import {
   UseFilters,
   Param,
   Body,
+  Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
@@ -165,7 +167,7 @@ export class AppController {
 
   @UseGuards(AuthenticatedGuard)
   @Get('/notas')
-  @Render('profile')
+  @Render('notas')
   getNotas(@Request() req) {
     return { user: req.user };
   }
@@ -225,5 +227,12 @@ export class AppController {
     return this.RolFuncionalidadService.findRolFuncionalidad().then(data => {
       return { rolfuncionalidades: data };
     });
+  }
+
+
+  @Delete(':id')
+  @HttpCode(202)
+  async deleteOrder(@Param() params): Promise<any> {
+      return (await this.RolService.deleteItem(params.id));
   }
 }

@@ -26,5 +26,18 @@ export class RolService {
       .exec();
   }
 
+  async deleteItem(idItem: string): Promise<any> {
+    try {
+      const deleteIem = this.RolModel;
+      if(!deleteIem){
+        throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+      }
+      return await deleteIem.findByIdAndRemove(idItem);
+    } catch (error) {
+      throw new HttpException(`Callback editItem ${error.message}`, HttpStatus.BAD_REQUEST);
+    }
+
+  }
+
   
 }

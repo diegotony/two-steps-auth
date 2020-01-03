@@ -42,18 +42,18 @@ export class UserService {
   //   async findItem(idItem: string): Promise<any[]> {
   //     return await this.ItemModel.findById(idItem).populate('catalog').exec();
   //   }
-  //   async deleteItem(idItem: string): Promise<Item[]> {
-  //     try {
-  //       const editIem = this.ItemModel;
-  //       if(!editIem){
-  //         throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
-  //       }
-  //       return await editIem.findByIdAndRemove(idItem);
-  //     } catch (error) {
-  //       throw new HttpException(`Callback editItem ${error.message}`, HttpStatus.BAD_REQUEST);
-  //     }
+    async deleteItem(idItem: string): Promise<any> {
+      try {
+        const deleteIem = this.UserModel;
+        if(!deleteIem){
+          throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+        }
+        return await deleteIem.findByIdAndRemove(idItem);
+      } catch (error) {
+        throw new HttpException(`Callback editItem ${error.message}`, HttpStatus.BAD_REQUEST);
+      }
 
-  //   }
+    }
   //   async editItem(idItem: string, dto: CreateItemDto) {
   //     return await this.ItemModel
 }
