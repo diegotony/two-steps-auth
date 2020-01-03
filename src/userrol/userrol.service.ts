@@ -24,13 +24,17 @@ export class UserrolService {
     }
   }
 
-  async findItems(): Promise<any[]> {
-    return await this.UserRolModel.find({}).exec();
+  async findRolUsers(): Promise<any[]> {
+    return await this.UserRolModel.find({})
+    .populate('rol_id')
+    .populate('user_id')
+    .exec();
   }
 
   findUserRol(id: string) {
     return this.UserRolModel.find({ user_id: id })
       .populate('rol_id')
+      .populate('user_id')
       .exec();
   }
 }

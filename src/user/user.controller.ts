@@ -14,6 +14,7 @@ export class UserController {
     @Get()
     @HttpCode(200)
     async findAll(): Promise<any[]> {
-      return (await this.userService.findItems());
+      return (await this.userService.findUsers());
+      
     }
 }

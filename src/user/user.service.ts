@@ -33,7 +33,7 @@ export class UserService {
     }
   }
 
-  async findItems(): Promise<any[]> {
+  async findUsers(): Promise<any[]> {
     return await this.UserModel.find({})
       .populate('catalog')
       .exec();

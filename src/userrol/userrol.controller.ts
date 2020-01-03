@@ -13,7 +13,7 @@ export class UserrolController {
     @Get()
     @HttpCode(200)
     async findAll(): Promise<any[]> {
-      return (await this.userRolService.findItems());
+      return (await this.userRolService.findRolUsers());
     }
 
     @Get(':id')
