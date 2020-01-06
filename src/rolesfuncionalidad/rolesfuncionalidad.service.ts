@@ -34,6 +34,13 @@ export class RolesfuncionalidadService {
           model: 'User',
         },
       })
+      .populate({
+        path: 'userrol_id',
+        populate: {
+          path: 'rol_id:',
+          model: 'Rol',
+        },
+      })
       .exec();
   }
 

@@ -22,9 +22,11 @@ export class UserController {
 
   @UseGuards(AuthenticatedGuard)
   @Post()
-  @HttpCode(200)
-  async createItem(@Body() data: any) {
-    return await this.userService.createItem(data);
+  @HttpCode(204)
+  async createItem(@Body() data: any, @Res() res: Response) {
+    return await this.userService
+      .createItem(data)
+      .then(() => res.redirect('/user'));
   }
 
   @UseGuards(AuthenticatedGuard)

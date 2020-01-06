@@ -66,7 +66,7 @@ export class RolesfuncionalidadController {
       .deleteRolesFuncionalidad(param.id)
       .then(data => {
         console.log(data);
-        res.redirect('/rolfuncionalidad');
+        res.redirect('/rolesfuncionalidad');
       });
   }
 }
