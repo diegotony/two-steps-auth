@@ -29,6 +29,7 @@ export class UserController {
       .then(() => res.redirect('/user'));
   }
 
+  
   @UseGuards(AuthenticatedGuard)
   @Get()
   @Render('user')

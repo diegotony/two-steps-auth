@@ -15,14 +15,22 @@ import {
 import { Response } from 'express';
 import { UserrolService } from './userrol.service';
 import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
+import { RolService } from '../rol/rol.service';
+import { UserService } from '../user/user.service';
 
 @Controller('userrol')
 export class UserrolController {
-  constructor(private readonly userRolService: UserrolService) {}
+  constructor(
+    private readonly userRolService: UserrolService,
+    private readonly rolService: RolService,
+    private readonly userService: UserService,
+  ) {}
   @Post()
   @HttpCode(200)
-  async createItem(@Body() data: any) {
-    return await this.userRolService.createUserRol(data);
+  async createItem(@Body() data: any, @Res() res: Response) {
+    return await this.userRolService
+      .createUserRol(data)
+      .then(() => res.redirect('/userrol'));
   }
 
   // @Get()
@@ -42,8 +50,11 @@ export class UserrolController {
   @Render('roluser')
   getRolUsers(@Request() req) {
     return this.userRolService.findRolUsers().then(data => {
-      console.log(data);
-      return { rolusers: data };
+      return this.rolService.findRols().then(rols => {
+        return this.userService.findUsers().then(users => {
+          return { rolusers: data, rols: rols, users: users };
+        });
+      });
     });
   }
 

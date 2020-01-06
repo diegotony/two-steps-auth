@@ -15,7 +15,6 @@
     </div>
 </div>
 {{/each}}
-
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -26,16 +25,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/rol" method="post">
+                <form action="/userrol" method="post">
 
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="user_id" id="user_id" />
-                        <label class="mdl-textfield__label" for="username">User</label>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">User</label>
+                        <select id="user_id" name="user_id" class="form-control">
+                            {{#each users}}
+                            <option value="{{_id}}"> {{email}} </option>
+                            {{/each}}
+
+                        </select>
                     </div>
 
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="rol_id" id="rol_id" />
-                        <label class="mdl-textfield__label" for="username">Rol</label>
+
+
+
+                    <div class="form-group col-md-4">
+                        <label for="inputState">Rol</label>
+                        <select id="rol_id" name="rol_id" class="form-control">
+                            {{#each rols}}
+                            <option value="{{_id}}"> {{name}} </option>
+                            {{/each}}
+
+                        </select>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <button class="btn btn-primary">Enter</button>

@@ -1,7 +1,5 @@
 <section class="container m-6 ">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add"> Añadir </button> </section>
-{{rolfuncionalidades}}
-
 
 {{#each rolfuncionalidades}} <div class="shadow p-4 mb-4 bg-white">
     <div class="row" id="row">
@@ -32,13 +30,13 @@
                 <form action="/funcionalidad" method="post">
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="name" id="name" />
-                        <label class="mdl-textfield__label" for="username">Nombre</label>
+                        <input class="mdl-textfield__input" type="text" name="userrol_id" id="userrol_id" />
+                        <label class="mdl-textfield__label" for="username">UserRol</label>
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="url" id="url" />
-                        <label class="mdl-textfield__label" for="username">Nombre</label>
+                        <input class="mdl-textfield__input" type="text" name="funcionalidad_id" id="funcionalidad_id" />
+                        <label class="mdl-textfield__label" for="username">Funcionalidad</label>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <button class="btn btn-primary">Enter</button>
