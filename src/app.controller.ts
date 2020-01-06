@@ -48,7 +48,7 @@ export class AppController {
   async verifyCode(@Body() data, @Res() res: Response) {
     return nexmo.verify.request(
       {
-        number: '593978732512',
+        number: data.phone,
         brand: 'Nexmo',
       },
       (err, result) => {
@@ -114,7 +114,9 @@ export class AppController {
   @UseGuards(LoginGuard)
   @Post('/login')
   login(@Res() res: Response) {
-    res.redirect('/verify');
+    // res.redirect('/verify');
+    res.redirect('/home');
+
   }
 
   @Get('/logout')
