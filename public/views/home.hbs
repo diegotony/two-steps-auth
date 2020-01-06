@@ -6,17 +6,17 @@
 
 
 <div class="container ">
-<div class="card-deck">
- {{#each rol}}
-  <div class="card">
+  <div class="card-deck">
+    {{#each rol}}
+    <div class="card">
 
-    <div class="card-body">
-      <h5 class="card-title">{{rol_id.name}}</h5>
-     <a class="mdl-button" href='/funcionalidad/{{_id}}'>Entrar</a>
+      <div class="card-body">
+        <h5 class="card-title">{{rol_id.name}}</h5>
+        <a class="mdl-button" href='/rolesfuncionalidad/{{_id}}'>Entrar</a>
+      </div>
+
     </div>
-    
-  </div>
-     {{/each}}
-     
+    {{/each}}
+
   </div>
 </div>

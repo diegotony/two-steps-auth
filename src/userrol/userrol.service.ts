@@ -26,9 +26,9 @@ export class UserrolService {
 
   async findRolUsers(): Promise<any[]> {
     return await this.UserRolModel.find({})
-    .populate('rol_id')
-    .populate('user_id')
-    .exec();
+      .populate('rol_id')
+      .populate('user_id')
+      .exec();
   }
 
   findUserRol(id: string) {
@@ -36,5 +36,20 @@ export class UserrolService {
       .populate('rol_id')
       .populate('user_id')
       .exec();
+  }
+
+  async deleteUserRol(idItem: string): Promise<any> {
+    try {
+      const deleteIem = this.UserRolModel;
+      if (!deleteIem) {
+        throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+      }
+      return await deleteIem.findByIdAndRemove(idItem);
+    } catch (error) {
+      throw new HttpException(
+        `Callback deleteFunc ${error.message}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

@@ -27,10 +27,13 @@ export class RolesfuncionalidadService {
   async findRolFuncionalidad(): Promise<any[]> {
     return await this.RolFuncionalidadModel.find({})
       .populate('funcionalidad_id')
-      .populate({ path: 'userrol_id', populate: {
-        path:'user_id',
-        model: 'User'
-      } })
+      .populate({
+        path: 'userrol_id',
+        populate: {
+          path: 'user_id',
+          model: 'User',
+        },
+      })
       .exec();
   }
 
@@ -39,5 +42,20 @@ export class RolesfuncionalidadService {
       .populate('funcionalidad_id')
       .populate('userrol_id')
       .exec();
+  }
+
+  async deleteRolesFuncionalidad(idItem: string): Promise<any> {
+    try {
+      const deleteIem = this.RolFuncionalidadModel;
+      if (!deleteIem) {
+        throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+      }
+      return await deleteIem.findByIdAndRemove(idItem);
+    } catch (error) {
+      throw new HttpException(
+        `Callback deleteFunc ${error.message}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

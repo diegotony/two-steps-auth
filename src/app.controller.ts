@@ -81,7 +81,7 @@ export class AppController {
       },
       (err, result) => {
         console.log(err ? err : result);
-        if(result.status==='0'){
+        if (result.status === '0') {
           res.redirect('/home');
         }
       },
@@ -116,7 +116,6 @@ export class AppController {
   login(@Res() res: Response) {
     // res.redirect('/verify');
     res.redirect('/home');
-
   }
 
   @Get('/logout')
@@ -137,26 +136,7 @@ export class AppController {
     });
   }
 
-  // @UseGuards(AuthenticatedGuard)
-  // @Get('/profile')
-  // @Render('profile')
-  // getProfile(@Request() req) {
-  //   return { user: req.user };
-  // }
 
-  // Check Funcionalidades
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/funcionalidad/:id')
-  @Render('funcionalidad')
-  funcionalidad(@Request() req, @Param() param) {
-    return this.RolFuncionalidadService.findOneRolFuncionalidad(param.id).then(
-      data => {
-        console.log(data);
-        return { funcionalidad: data };
-      },
-    );
-  }
 
   // Docente Component
 
@@ -182,59 +162,4 @@ export class AppController {
     return { user: req.user };
   }
 
-  @UseGuards(AuthenticatedGuard)
-  @Get('/rol')
-  @Render('rol')
-  getRol(@Request() req) {
-    return this.RolService.findRols().then(data => {
-      console.log(data);
-      return { rols: data };
-    });
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/user')
-  @Render('user')
-  getUsers(@Request() req) {
-    return this.userService.findUsers().then(data => {
-      console.log(data);
-      return { users: data };
-    });
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/roluser')
-  @Render('roluser')
-  getRolUsers(@Request() req) {
-    return this.userRolService.findRolUsers().then(data => {
-      console.log(data);
-      return { rolusers: data };
-    });
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/funcioadmin')
-  @Render('funcionalidadesadmin')
-  getFuncionalidad(@Request() req) {
-    return this.funcionalidadService.findFuncionalidades().then(data => {
-      console.log(data);
-      return { funcionalidades: data };
-    });
-  }
-
-  @UseGuards(AuthenticatedGuard)
-  @Get('/rolfuncionalidad')
-  @Render('rolfuncionalidad')
-  getRolFuncionalidad(@Request() req) {
-    return this.RolFuncionalidadService.findRolFuncionalidad().then(data => {
-      return { rolfuncionalidades: data };
-    });
-  }
-
-
-  @Delete(':id')
-  @HttpCode(202)
-  async deleteOrder(@Param() params): Promise<any> {
-      return (await this.RolService.deleteItem(params.id));
-  }
 }

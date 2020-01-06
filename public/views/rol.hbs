@@ -1,21 +1,46 @@
-<div class="container ">
-    <table class="table">
-        <thead>
-            <tr>
+<section class="container m-6 ">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add"> Añadir </button> </section>
+{{#each rols}} <div class="shadow p-4 mb-4 bg-white">
+    <div class="row" id="row">
+        <div class="col-sm-6 text-uppercase">
+            {{name}}
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-danger">
+                <a href="http://localhost:3000/rol/delete/{{_id}}">Eliminar</a>
+            </button>
 
-                <th scope="col">Nombre</th>
-                <th scope="col">Borrar</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            {{#each rols}}
-            <tr>
-                <td>{{name}}</td>
-                <td><button>Borrar</button></td>
-            </tr>
-            {{/each}}
-        </tbody>
-
-    </table>
+        </div>
+    </div>
 </div>
+{{/each}}
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/rol" method="post">
+
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" name="name" id="name" />
+                        <label class="mdl-textfield__label" for="username">Nombre</label>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="btn btn-primary">Enter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>
