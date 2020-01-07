@@ -28,18 +28,6 @@ export class RolController {
       .then(() => res.redirect('/rol'));
   }
 
-  // @Get()
-  // @HttpCode(200)
-  // async findRols(): Promise<any[]> {
-  //   return await this.rolService.findRols();
-  // }
-
-  // @Get()
-  // @HttpCode(200)
-  // async findRol(): Promise<any[]> {
-  //   return await this.rolService.findRols();
-  // }
-
   @UseGuards(AuthenticatedGuard)
   @Get()
   @Render('rol')

@@ -15,20 +15,24 @@ import {
 import { Response } from 'express';
 import { RolesfuncionalidadService } from './rolesfuncionalidad.service';
 import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
+import { FuncionalidadService } from '../funcionalidad/funcionalidad.service';
+import { RolService } from '../rol/rol.service';
 
 @Controller('rolesfuncionalidad')
 export class RolesfuncionalidadController {
   constructor(
     private readonly rolFuncionalidadService: RolesfuncionalidadService,
+    private readonly funcionalidadService: FuncionalidadService,
+    private readonly rolService: RolService,
   ) {}
 
   @UseGuards(AuthenticatedGuard)
   @Post()
-  @HttpCode(204)
+  @HttpCode(201)
   async createRol(@Body() dto: any, @Res() res: Response) {
     return await this.rolFuncionalidadService
       .createRolFuncionalidad(dto)
-      .then(() => res.redirect('/rolfuncionalidad'));
+      .then(() => res.redirect('/rolesfuncionalidad'));
   }
 
   // @Get()
@@ -42,7 +46,17 @@ export class RolesfuncionalidadController {
   @Render('rolfuncionalidad')
   getRolFuncionalidad(@Request() req) {
     return this.rolFuncionalidadService.findRolFuncionalidad().then(data => {
-      return { rolfuncionalidades: data };
+      return this.funcionalidadService
+        .findFuncionalidades()
+        .then(funcionalidades => {
+          return this.rolService.findRols().then(rols => {
+            return {
+              rolfuncionalidades: data,
+              funcionalidades: funcionalidades,
+              rols: rols,
+            };
+          });
+        });
     });
   }
 

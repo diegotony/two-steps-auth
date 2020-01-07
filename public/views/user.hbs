@@ -3,7 +3,7 @@
 {{#each users}} <div class="shadow p-4 mb-4 bg-white">
     <div class="row" id="row">
         <div class="col-sm-6 text-uppercase">
-            {{email}}
+            {{email}} {{phone}}
         </div>
         <div class="col-sm-1">
             <button type="button" class="btn btn-danger">
@@ -34,8 +34,12 @@
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="password" id="password" />
+                        <input class="mdl-textfield__input" type="password" name="password" id="password" />
                         <label class="mdl-textfield__label" for="username">Password</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="number" name="phone" id="phone" />
+                        <label class="mdl-textfield__label" for="username">Telefono</label>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <button class="btn btn-primary">Enter</button>

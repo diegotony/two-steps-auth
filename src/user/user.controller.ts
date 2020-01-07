@@ -20,7 +20,7 @@ import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Post()
   @HttpCode(204)
   async createItem(@Body() data: any, @Res() res: Response) {
@@ -29,18 +29,17 @@ export class UserController {
       .then(() => res.redirect('/user'));
   }
 
-  
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get()
   @Render('user')
   getUsers(@Request() req) {
     return this.userService.findUsers().then(data => {
-      console.log(data);
+      // console.log(data);
       return { users: data };
     });
   }
 
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @HttpCode(201)
   @Get('/delete/:id')
   deleteRol(@Request() req, @Param() param, @Res() res: Response) {

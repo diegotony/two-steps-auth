@@ -26,8 +26,8 @@ import { FuncionalidadService } from './funcionalidad/funcionalidad.service';
 const Nexmo = require('nexmo');
 
 const nexmo = new Nexmo({
-  apiKey: 'cbaeaaef',
-  apiSecret: 'KRTQC2ZAvUyMAAY9',
+  apiKey: 'a7629f62',
+  apiSecret: 'HE84x0SdAQBHoD6G',
 });
 
 @Controller()
@@ -60,15 +60,16 @@ export class AppController {
     );
   }
 
-  @Get('/verify')
-  @Render('verify')
-  async verify(@Request() req, @Res() res: Response) {
-    return { message: req.flash('loginError') };
-  }
+  // @Get('/verify')
+  // @Render('verify')
+  // async verify(@Request() req, @Res() res: Response) {
+  //   return { message: req.flash('loginError') };
+  // }
 
   @Get('/check')
   @Render('checkcode')
   async checkPage(@Request() req, @Res() res: Response) {
+    
     return { message: req.flash('loginError') };
   }
 
@@ -136,8 +137,6 @@ export class AppController {
     });
   }
 
-
-
   // Docente Component
 
   @UseGuards(AuthenticatedGuard)
@@ -155,11 +154,16 @@ export class AppController {
   }
 
   //  Admin Rol
-  @UseGuards(AuthenticatedGuard)
-  @Get('/admin')
-  @Render('admin')
+  // @UseGuards(AuthenticatedGuard)
+  @Get('/admin/users')
+  @Render('adminuser')
   getAdmin(@Request() req) {
     return { user: req.user };
   }
 
+  @Get('/admin/tables')
+  @Render('admintables')
+  getAdminTables(@Request() req) {
+    return { user: req.user };
+  }
 }

@@ -27,27 +27,15 @@ export class RolesfuncionalidadService {
   async findRolFuncionalidad(): Promise<any[]> {
     return await this.RolFuncionalidadModel.find({})
       .populate('funcionalidad_id')
-      .populate({
-        path: 'userrol_id',
-        populate: {
-          path: 'user_id',
-          model: 'User',
-        },
-      })
-      .populate({
-        path: 'userrol_id',
-        populate: {
-          path: 'rol_id:',
-          model: 'Rol',
-        },
-      })
+      .populate('rol_id')
+
       .exec();
   }
 
   findOneRolFuncionalidad(id: string) {
-    return this.RolFuncionalidadModel.find({ userrol_id: id })
+    return this.RolFuncionalidadModel.find({ rol_id: id })
       .populate('funcionalidad_id')
-      .populate('userrol_id')
+      .populate('rol_id')
       .exec();
   }
 

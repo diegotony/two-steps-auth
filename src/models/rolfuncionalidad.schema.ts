@@ -4,5 +4,5 @@ export const RolFuncionalidadSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Funcionalidad',
   },
-  userrol_id: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRol' },
+  rol_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Rol' },
 });

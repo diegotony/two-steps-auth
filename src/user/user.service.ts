@@ -2,7 +2,8 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../dto/user.dto';
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 @Injectable()
 export class UserService {
   private readonly users: any[];
@@ -19,11 +20,21 @@ export class UserService {
 
   async createItem(data: any): Promise<any> {
     try {
-      const createdItem = new this.UserModel(data);
-      if (!createdItem) {
-        throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
-      }
-      return await createdItem.save();
+      let plain = data.password;
+
+      bcrypt.hash(plain, saltRounds, (err, hash) => {
+        const createdItem = new this.UserModel({
+          email: data.email,
+          password: hash,
+          phone: data.phone,
+        });
+
+        if (!createdItem) {
+          throw new HttpException('Upps error ...', HttpStatus.BAD_REQUEST);
+        }
+        return createdItem.save();
+        // console.log(data);
+      });
     } catch (error) {
       throw new HttpException(
         `Callback postItem ${error.message}`,
