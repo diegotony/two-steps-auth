@@ -46,47 +46,50 @@ export class AppController {
   // Verify
   @Post('/verify')
   async verifyCode(@Body() data, @Res() res: Response) {
-    return nexmo.verify.request(
-      {
-        number: data.phone,
-        brand: 'Nexmo',
-      },
-      (err, result) => {
-        console.log(err ? err : result);
-        console.log(result.request_id);
-        this.request_id = result.request_id;
-        res.redirect('/check');
-      },
-    );
+    try {
+      return nexmo.verify.request(
+        {
+          number: data.phone,
+          brand: 'Nexmo',
+        },
+        (err, result) => {
+          console.log(err ? err : result);
+          console.log(result.request_id);
+          this.request_id = result.request_id;
+          res.redirect('/check');
+        },
+      );
+    } catch (error) {}
   }
 
-  // @Get('/verify')
-  // @Render('verify')
-  // async verify(@Request() req, @Res() res: Response) {
-  //   return { message: req.flash('loginError') };
-  // }
+  @Get('/verify')
+  @Render('verify')
+  async verify(@Request() req, @Res() res: Response) {
+    return { message: req.flash('loginError') };
+  }
 
   @Get('/check')
   @Render('checkcode')
   async checkPage(@Request() req, @Res() res: Response) {
-    
     return { message: req.flash('loginError') };
   }
 
   @Post('/check')
   async checkCode(@Body() data, @Res() res: Response) {
-    return nexmo.verify.check(
-      {
-        request_id: this.request_id,
-        code: data.pin,
-      },
-      (err, result) => {
-        console.log(err ? err : result);
-        if (result.status === '0') {
-          res.redirect('/home');
-        }
-      },
-    );
+    try {
+      return nexmo.verify.check(
+        {
+          request_id: this.request_id,
+          code: data.pin,
+        },
+        (err, result) => {
+          console.log(err ? err : result);
+          if (result.status === '0') {
+            res.redirect('/home');
+          }
+        },
+      );
+    } catch (error) {}
   }
 
   @Post('/cancel')
@@ -116,7 +119,7 @@ export class AppController {
   @Post('/login')
   login(@Res() res: Response) {
     // res.redirect('/verify');
-    res.redirect('/home');
+    res.redirect('/verify');
   }
 
   @Get('/logout')
